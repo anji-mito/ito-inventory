@@ -1,6 +1,8 @@
 package com.ito.inventory.item.entity;
 
+import com.ito.inventory.location.entity.Location;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,14 +23,17 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @Column(nullable = false, updatable = false)
     private UUID id;
+    @NotBlank
     @NotNull(message = "Name is required")
     private String name; // Наименование
     private String description; // Описание
+    @Column(unique = true)
     private String inventoryNumber; // Инвентарник
     private Float cost; // Стоимость
     private String materiallyResponsible; // Метериально ответственный
     private State currentState;
-    private String currentLocation;
+    @OneToOne
+    private Location currentLocation;
     private String boughtAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
 }
