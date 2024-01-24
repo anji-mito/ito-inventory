@@ -2,9 +2,15 @@ package com.ito.inventory.item.dto;
 
 import com.ito.inventory.employee.dto.EmployeeDto;
 import com.ito.inventory.location.dto.LocationDto;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.UUID;
+
+@Getter
+@Setter
 public class ItemDto {
-    private long id;
+    private UUID id;
     private String name;
     private String description;
     private String inventoryNumber;

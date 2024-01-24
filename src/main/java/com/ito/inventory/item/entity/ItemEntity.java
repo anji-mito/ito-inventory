@@ -1,7 +1,6 @@
 package com.ito.inventory.item.entity;
 
-import com.ito.inventory.employee.entity.Employee;
-import com.ito.inventory.location.entity.Location;
+import com.ito.inventory.employee.entity.EmployeeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-public class Item {
+public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @Column(nullable = false, updatable = false)
@@ -32,7 +31,7 @@ public class Item {
     private String inventoryNumber; // Инвентарник
     private Double cost; // Стоимость
     @ManyToOne
-    private Employee materiallyResponsible; // Метериально ответственный
+    private EmployeeEntity materiallyResponsible; // Метериально ответственный
     private State currentState;
     private String boughtAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());

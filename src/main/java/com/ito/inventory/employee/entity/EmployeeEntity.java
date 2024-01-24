@@ -1,4 +1,5 @@
-package com.ito.inventory.location.entity;
+package com.ito.inventory.employee.entity;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,12 +13,12 @@ import java.util.UUID;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location {
+public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @Column(nullable = false, updatable = false)
     private UUID id;
-    private String address;
-    private String cabinet;
-    private String corpus;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
 }
