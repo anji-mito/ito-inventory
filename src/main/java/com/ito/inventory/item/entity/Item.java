@@ -1,5 +1,6 @@
 package com.ito.inventory.item.entity;
 
+import com.ito.inventory.employee.entity.Employee;
 import com.ito.inventory.location.entity.Location;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -29,11 +30,10 @@ public class Item {
     private String description; // Описание
     @Column(unique = true)
     private String inventoryNumber; // Инвентарник
-    private Float cost; // Стоимость
-    private String materiallyResponsible; // Метериально ответственный
+    private Double cost; // Стоимость
+    @ManyToOne
+    private Employee materiallyResponsible; // Метериально ответственный
     private State currentState;
-    @OneToOne
-    private Location currentLocation;
     private String boughtAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
 }
