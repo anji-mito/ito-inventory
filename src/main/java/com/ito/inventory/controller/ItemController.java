@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.net.http.HttpRequest;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @AllArgsConstructor
 @RestController
@@ -19,25 +21,46 @@ import java.util.UUID;
 public class ItemController {
     private final ItemServiceImpl itemService;
     private final ModelMapper mapper;
+
     @GetMapping("/{id}")
-    public ItemDto getItemById(@PathVariable("id")UUID id) {
+    public ItemDto getItemById(@PathVariable("id") UUID id) {
         return convertToDto(itemService.findItemById(id));
     }
+
     @PostMapping
     public ItemDto addItem(@Valid @RequestBody ItemDto itemDto) {
         var entity = convertToEntity(itemDto);
         var item = itemService.addItem(entity);
         return convertToDto(item);
     }
+
     @PutMapping
     public void putItem(@PathVariable("id") UUID id, @Valid @RequestBody ItemDto itemDto) {
         if (!id.equals(itemDto.getId())) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         var itemEntity = convertToEntity(itemDto);
         itemService.updateItem(id, itemEntity);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteItemById(@PathVariable("id") UUID id) {
+        itemService.removeItemById(id);
+    }
+
+    @GetMapping
+    public List<ItemDto> getItems() {
+        var itemList = StreamSupport
+                .stream(itemService.findAllItems().spliterator(), false)
+                .toList();
+        return itemList
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
     private ItemDto convertToDto(ItemEntity entity) {
         return mapper.map(entity, ItemDto.class);
     }
+
     private ItemEntity convertToEntity(ItemDto dto) {
         return mapper.map(dto, ItemEntity.class);
     }
