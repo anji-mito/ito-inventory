@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.validation.constraints.NotNull;
-
+import org.springframework.data.redis.core.RedisHash;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -18,6 +18,7 @@ import java.util.UUID;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
+@RedisHash("Item")
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
