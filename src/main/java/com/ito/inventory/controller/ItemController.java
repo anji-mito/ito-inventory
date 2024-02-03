@@ -6,6 +6,7 @@ import com.ito.inventory.item.service.ItemServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -47,10 +48,10 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<ItemDto> getItems() {
-        var itemList = StreamSupport
-                .stream(itemService.findAllItems().spliterator(), false)
-                .toList();
+    public List<ItemDto> getItems(Pageable pageable) {
+        int toSkip = pageable.getPageSize() * pageable.getPageNumber();
+        var itemList = StreamSupport.stream(itemService.findAllItems().spliterator(), false)
+                .skip(toSkip).limit(pageable.getPageSize()).toList();
         return itemList
                 .stream()
                 .map(this::convertToDto)

@@ -18,7 +18,6 @@ import java.util.UUID;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash("Item")
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
@@ -31,8 +30,8 @@ public class ItemEntity {
     @Column(unique = true)
     private String inventoryNumber; // Инвентарник
     private Double cost; // Стоимость
-    @ManyToOne
-    private EmployeeEntity materiallyResponsible; // Метериально ответственный
+    //@ManyToOne
+    //private EmployeeEntity materiallyResponsible; // Метериально ответственный
     private State currentState;
     private String boughtAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
     private String createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z").format(new Date());
