@@ -1,4 +1,4 @@
-package com.ito.inventory.controller;
+package com.ito.inventory.item.controller;
 
 import com.ito.inventory.item.dto.ItemDto;
 import com.ito.inventory.item.entity.ItemEntity;
@@ -19,6 +19,7 @@ import java.util.stream.StreamSupport;
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/items")
+@CrossOrigin(allowedHeaders = "Content-type")
 public class ItemController {
     private final ItemServiceImpl itemService;
     private final ModelMapper mapper;
@@ -47,6 +48,7 @@ public class ItemController {
         itemService.removeItemById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public List<ItemDto> getItems(Pageable pageable) {
         int toSkip = pageable.getPageSize() * pageable.getPageNumber();
