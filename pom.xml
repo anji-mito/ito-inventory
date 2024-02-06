@@ -65,9 +65,14 @@
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.15</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -113,6 +118,17 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <apiDocsUrl>
+                        http://localhost:8080/v3/api-docs
+                    </apiDocsUrl>
+                    <outputFileName>openapi.json</outputFileName>
+                    <outputDir>/home/springdoc/output-folder</outputDir>
+                    <skip>false</skip>
+                    <headers>
+                        <header1-key>header1-value</header1-key>
+                    </headers>
+                </configuration>
             </plugin>
         </plugins>
     </build>
